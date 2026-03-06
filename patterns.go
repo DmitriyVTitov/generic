@@ -2,6 +2,9 @@ package generic
 
 import "sync"
 
+// FanIn takes multiple input channels and returns a single output channel
+// that emits values from all input channels. The output channel is closed
+// once all input channels are closed.
 func FanIn[T any](channels ...<-chan T) <-chan T {
 	out := make(chan T)
 
@@ -23,30 +26,4 @@ func FanIn[T any](channels ...<-chan T) <-chan T {
 	}()
 
 	return out
-}
-
-func FanOut[T any](in <-chan T, n int) []<-chan T {
-	channels := make([]chan T, n)
-	for i := range channels {
-		channels[i] = make(chan T)
-	}
-
-	go func() {
-		for val := range in {
-			for _, ch := range channels {
-				ch <- val
-			}
-		}
-
-		for _, ch := range channels {
-			close(ch)
-		}
-	}()
-
-	outChannels := make([]<-chan T, n)
-	for i, ch := range channels {
-		outChannels[i] = ch
-	}
-
-	return outChannels
 }

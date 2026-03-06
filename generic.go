@@ -1,6 +1,6 @@
 package generic
 
-// Val returns value of pointer or default value if pointer is 'nil'.
+// Val returns value of pointer or zero value if pointer is nil.
 func Val[T any](ptr *T) T {
 	if ptr == nil {
 		var zero T
