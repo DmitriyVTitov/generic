@@ -9,9 +9,14 @@ func FanIn[T any](channels ...<-chan T) <-chan T {
 	out := make(chan T)
 
 	var wg sync.WaitGroup
-	wg.Add(len(channels))
 
 	for _, ch := range channels {
+		if ch == nil {
+			continue
+		}
+
+		wg.Add(1)
+
 		go func(c <-chan T) {
 			defer wg.Done()
 			for val := range c {
