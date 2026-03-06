@@ -25,7 +25,7 @@ func TestFanIn(t *testing.T) {
 		}
 	}()
 
-	out := generic.FanIn(ch1, ch2, nilCh)
+	out := generic.FanIn(t.Context(), ch1, ch2, nilCh)
 
 	counter := 0
 	for range out {
