@@ -11,12 +11,13 @@ func RemoveDuplicates[S ~[]E, E comparable](s S) S {
 // RemoveDuplicatesFunc is like [RemoveDuplicates] but uses an
 // equality function to compare elements.
 func RemoveDuplicatesFunc[S ~[]E, E any](s S, equal func(a, b E) bool) S {
-LOOP:
-	for i := range s {
-		for j := i + 1; j < len(s); j++ {
+	for i := 0; i < len(s); i++ {
+		for j := i + 1; j < len(s); {
 			if equal(s[i], s[j]) {
 				s = slices.Delete(s, j, j+1)
-				goto LOOP
+				// Don't increment j; check the same position again after deletion
+			} else {
+				j++
 			}
 		}
 	}
@@ -71,13 +72,13 @@ func GetDuplicateIndexesFunc[S ~[]E, E any](s S, equal func(a, b E) bool) map[in
 // RemoveDuplicatesByComparableKey removes duplicate elements from a slice using a derived comparable key.
 // The key function extracts a key from each element; elements with repeated keys are skipped.
 func RemoveDuplicatesByComparableKey[T any, K comparable](slice []T, fn func(T) K) []T {
-	keys := make(map[K]bool)
+	keys := make(map[K]struct{})
 	result := []T{}
 
 	for _, item := range slice {
 		key := fn(item)
-		if _, value := keys[key]; !value {
-			keys[key] = true
+		if _, exists := keys[key]; !exists {
+			keys[key] = struct{}{}
 			result = append(result, item)
 		}
 	}
