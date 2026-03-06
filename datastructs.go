@@ -2,14 +2,14 @@ package generic
 
 import "sync"
 
-// Q is a generic FIFO queue.
-type Q[T any] struct {
+// Queue is a generic FIFO queue.
+type Queue[T any] struct {
 	mu       sync.Mutex
 	elements []*T
 }
 
 // Enqueue adds an object to the end of the queue.
-func (q *Q[T]) Enqueue(el *T) {
+func (q *Queue[T]) Enqueue(el *T) {
 	q.mu.Lock()
 	defer q.mu.Unlock()
 
@@ -17,7 +17,7 @@ func (q *Q[T]) Enqueue(el *T) {
 }
 
 // Dequeue returns the first object in the queue.
-func (q *Q[T]) Dequeue() *T {
+func (q *Queue[T]) Dequeue() *T {
 	q.mu.Lock()
 	defer q.mu.Unlock()
 
@@ -33,7 +33,7 @@ func (q *Q[T]) Dequeue() *T {
 }
 
 // Len returns the number of elements in the queue.
-func (q *Q[T]) Len() int {
+func (q *Queue[T]) Len() int {
 	q.mu.Lock()
 	defer q.mu.Unlock()
 
@@ -41,7 +41,7 @@ func (q *Q[T]) Len() int {
 }
 
 // All returns all elements and clears the queue.
-func (q *Q[T]) All() []*T {
+func (q *Queue[T]) All() []*T {
 	q.mu.Lock()
 	defer q.mu.Unlock()
 

@@ -4,8 +4,8 @@ import (
 	"testing"
 )
 
-func TestQ(t *testing.T) {
-	q := Q[int]{}
+func TestQueue(t *testing.T) {
+	q := Queue[int]{}
 
 	q.Enqueue(Ptr(1))
 	q.Enqueue(Ptr(2))
