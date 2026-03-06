@@ -108,7 +108,7 @@ func TestRemoveDuplicatesFunc(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := RemoveDuplicatesFunc(tt.args.s, tt.args.equal); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DedupFunc() = %v, want %v", got, tt.want)
+				t.Errorf("RemoveDuplicatesFunc() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -196,7 +196,7 @@ func TestContainsDuplicatesFunc(t *testing.T) {
 	}
 }
 
-func TestGetDuplicatesIndexes(t *testing.T) {
+func TestGetDuplicateIndexes(t *testing.T) {
 	type args struct {
 		s []int
 	}
@@ -215,14 +215,14 @@ func TestGetDuplicatesIndexes(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetDuplicatesIndexes(tt.args.s); !reflect.DeepEqual(got, tt.want) {
+			if got := GetDuplicateIndexes(tt.args.s); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetDuplicatesIndexes() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestGetDuplicatesIndexesFunc(t *testing.T) {
+func TestGetDuplicateIndexesFunc(t *testing.T) {
 	tc1 := []testStruct{
 		{s: "A", i: 0, b: true},
 		{s: "B", i: 1, b: true},
@@ -253,8 +253,8 @@ func TestGetDuplicatesIndexesFunc(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetDuplicatesIndexesFunc(tt.args.s, tt.args.equal); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetDuplicatesIndexesFunc() = %v, want %v", got, tt.want)
+			if got := GetDuplicateIndexesFunc(tt.args.s, tt.args.equal); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetDuplicateIndexesFunc() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -44,14 +44,14 @@ func ContainsDuplicatesFunc[S ~[]E, E any](s S, equal func(a, b E) bool) bool {
 	return false
 }
 
-// GetDuplicatesIndexes returns duplicate indexes for each element in the slice.
-func GetDuplicatesIndexes[S ~[]E, E comparable](s S) map[int][]int {
-	return GetDuplicatesIndexesFunc(s, func(a, b E) bool { return a == b })
+// GetDuplicateIndexes returns duplicate indexes for each element in the slice.
+func GetDuplicateIndexes[S ~[]E, E comparable](s S) map[int][]int {
+	return GetDuplicateIndexesFunc(s, func(a, b E) bool { return a == b })
 }
 
-// GetDuplicatesIndexesFunc is like [GetDuplicatesIndexes] but uses an
+// GetDuplicateIndexesFunc is like [GetDuplicateIndexes] but uses an
 // equality function to compare elements.
-func GetDuplicatesIndexesFunc[S ~[]E, E any](s S, equal func(a, b E) bool) map[int][]int {
+func GetDuplicateIndexesFunc[S ~[]E, E any](s S, equal func(a, b E) bool) map[int][]int {
 	duplicates := make(map[int][]int)
 
 	for i := range s {
