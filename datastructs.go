@@ -4,16 +4,8 @@ import "sync"
 
 // Q is a generic FIFO queue.
 type Q[T any] struct {
-	mu       *sync.Mutex
+	mu       sync.Mutex
 	elements []*T
-}
-
-func New[T any]() *Q[T] {
-	q := Q[T]{
-		mu: &sync.Mutex{},
-	}
-
-	return &q
 }
 
 // Enqueue adds an object to the end of the queue.
@@ -33,6 +25,7 @@ func (q *Q[T]) Dequeue() *T {
 
 	if len(q.elements) > 0 {
 		item = q.elements[0]
+		q.elements[0] = nil // Clear reference to the dequeued item for GC.
 		q.elements = q.elements[1:]
 	}
 
