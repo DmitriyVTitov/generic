@@ -17,7 +17,7 @@
 ## 📦 Installation
 
 ```bash
-go install github.com/DmitriyVTitov/generic@latest
+go get github.com/DmitriyVTitov/generic
 ```
 
 Requires Go 1.18 or later.
